@@ -70,10 +70,19 @@ function DateGen(props) {
     months[currentDate.getMonth()]
   } ${currentDate.getDate()} ${currentDate.getFullYear()}`;
 
-  return (
+  return props.day === 0 ? (
+    <div>
+      <span>The date today is </span>
+      <span>{formattedDate} </span>
+    </div>
+  ) : (
     <div>
       <span>{props.day} </span>
-      <span>days from today is </span>
+      <span>
+        {props.day === 1 || props.day === -1
+          ? "day from today is "
+          : "days from today is "}
+      </span>
       <span>{formattedDate} </span>
     </div>
   );
