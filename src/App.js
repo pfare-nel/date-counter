@@ -13,36 +13,41 @@ function Counter() {
   const [step, setStep] = useState(1);
   const [count, setCount] = useState(0);
 
-  function handleMinusStep() {
-    if (step > 1) setStep((s) => s - 1);
-  }
-  function handlePlusStep() {
-    setStep((s) => s + 1);
-  }
-
-  function handleMinusCount() {
-    setCount((c) => c - step);
-  }
-  function handlePlusCount() {
-    setCount((c) => c + step);
+  function handleReset() {
+    setCount(0);
+    setStep(1);
   }
 
   return (
     <div className="container">
       <div>
-        <button onClick={handleMinusStep}>-</button>
-        <span>Step: {step}</span>
-        <button onClick={handlePlusStep}>+</button>
+        <input
+          type="range"
+          min="1"
+          max="10"
+          value={step}
+          onChange={(e) => setStep(Number(e.target.value))}
+        />
+        <span> {step}</span>
       </div>
       <div>
-        <button onClick={handleMinusCount}>-</button>
-        <span>Count: {count}</span>
-        <button onClick={handlePlusCount}>+</button>
+        <button onClick={() => setCount((c) => c - step)}>-</button>
+        <input
+          type="text"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+        />
+        <button onClick={() => setCount((c) => c + step)}>+</button>
       </div>
 
       <p>
         <DateGen day={count} />
       </p>
+      {count !== 0 || step !== 1 ? (
+        <div>
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      ) : null}
     </div>
   );
 }
